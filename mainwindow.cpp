@@ -20,15 +20,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QRect screenRect = desktopWidget->screenGeometry();
 
     // 设置全屏/最大化
-//    this->setWindowState(Qt::WindowMaximized);
     this->setGeometry(screenRect);
     this->setMinimumWidth(screenRect.width());
     this->setMinimumHeight(screenRect.height());
+//    this->setWindowState(Qt::WindowMaximized);
 //    this->showFullScreen();
 
     // 设置透明
-//    this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowOpacity(1);
+//    this->setAttribute(Qt::WA_TranslucentBackground, true);
     // this->setStyleSheet("MainWindow{background: transparent;}");
 
     // 嵌入网页
@@ -43,16 +43,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 {
-    qDebug() << __FILE__;
-    qDebug() << __FUNCTION__;
-    qDebug() << watched->objectName();
-    qDebug() << event->type();
+//    qDebug() << __FILE__;
+//    qDebug() << __FUNCTION__;
+//    qDebug() << watched->objectName();
+//    qDebug() << event->type();
     if (event->type() == QEvent::ShortcutOverride) {
-        qDebug() << "key pressed";
+//        qDebug() << "key pressed";
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         qDebug() << keyEvent->key();
         if (keyEvent->key() == Qt::Key_Escape) {
-            this->close();
+//            this->close();
+            exit(0);
             return true;
         } else {
             return false;
