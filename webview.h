@@ -7,6 +7,9 @@ class WebView : public QWebEngineView
 {
 public:
     WebView(QWidget *parent = Q_NULLPTR);
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
 };
 
 #endif // WEBVIEW_H
