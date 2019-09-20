@@ -18,9 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QRect deskRect = desktopWidget->availableGeometry();
     QRect screenRect = desktopWidget->screenGeometry();
 
-    printf("available: %d %d\n", deskRect.width(), deskRect.height());
-    printf("screen: %d %d\n", screenRect.width(), screenRect.height());
-
     // 设置全屏/最大化
 //    this->setWindowState(Qt::WindowMaximized);
     this->setGeometry(screenRect);
@@ -42,26 +39,28 @@ MainWindow::MainWindow(QWidget *parent) :
     webView->show();
 }
 
-bool MainWindow::eventFilter(QObject *watched, QEvent *event)
-{
-    if (event->type() == QEvent::KeyPress) {
-        qDebug() << "shit";
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        MainWindow::keyPressEvent(keyEvent);
-        if (keyEvent->key() == Qt::Key_Escape) {
-            this->close();
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
+//bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+//{
+//    if (event->type() == QEvent::KeyPress) {
+//        qDebug() << "shit";
+//        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+//        MainWindow::keyPressEvent(keyEvent);
+//        if (keyEvent->key() == Qt::Key_Escape) {
+//            this->close();
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    } else {
+//        return false;
+//    }
+//}
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    qDebug() << "fuck";
+    qDebug() << __FILE__;
+    qDebug() << __FUNCTION__;
+    qDebug() << "key pressed";
     QMainWindow::keyPressEvent(event);
 }
 
