@@ -7,6 +7,7 @@
 #include <QKeyEvent>
 #include <QDesktopWidget>
 #include <QRect>
+#include <QVBoxLayout>
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,7 @@ protected:
 private:
     Ui::MainWindow *ui;
     WebView *webView;
+    QWidget *window;
 };
 
 #endif // MAINWINDOW_H

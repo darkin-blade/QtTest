@@ -36,7 +36,32 @@ MainWindow::MainWindow(QWidget *parent) :
     webView->show();
 
     // 添加按钮
-    QPushButton *btn = new QPushButton(this);
+//    QVBoxLayout *vlay = new QVBoxLayout(this);
+//    QPushButton *btn[10];
+//    for (int i = 0; i < 10; i ++) {
+//        btn[i] = new QPushButton(this);
+//        btn[i]->resize(100, 100);
+//        vlay->addWidget(btn[i]);
+//    }
+//    this->setLayout(vlay);
+
+    window = new QWidget;
+    QPushButton *button1 = new QPushButton(this);
+    QPushButton *button2 = new QPushButton(this);
+    QPushButton *button3 = new QPushButton(this);
+    QPushButton *button4 = new QPushButton(this);
+    QPushButton *button5 = new QPushButton(this);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(button1);
+    layout->addWidget(button2);
+    layout->addWidget(button3);
+    layout->addWidget(button4);
+    layout->addWidget(button5);
+
+    window->setLayout(layout);
+    setCentralWidget(window);
+//    window->show();
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
