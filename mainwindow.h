@@ -1,11 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <webview.h>
 #include <QMainWindow>
 #include <QKeyEvent>
 #include <QDesktopWidget>
 #include <QRect>
-#include <QWebEngineView>
 
 namespace Ui {
 class MainWindow;
@@ -25,7 +25,7 @@ protected:
 
 private:
     Ui::MainWindow *ui;
-    QWebEngineView *webView;
+    WebView *webView;
 };
 
 #endif // MAINWINDOW_H
