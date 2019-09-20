@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // 设置全屏/最大化
 //    this->setWindowState(Qt::WindowMaximized);
     this->setGeometry(screenRect);
+    this->setMinimumWidth(screenRect.width());
     this->setMinimumHeight(screenRect.height());
 //    this->showFullScreen();
 
@@ -33,6 +34,18 @@ MainWindow::MainWindow(QWidget *parent) :
 //    this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowOpacity(1);
     // this->setStyleSheet("MainWindow{background: transparent;}");
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    printf("key pressed\n");
+    switch (event->key()) {
+        case Qt::Key_Escape:
+            this->close();
+            break;
+        default:
+            break;
+    }
 }
 
 MainWindow::~MainWindow()
