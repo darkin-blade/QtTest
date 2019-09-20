@@ -14,14 +14,23 @@ MainWindow::MainWindow(QWidget *parent) :
 //    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
 
     // 获取屏幕分辨率
+    int totalWidth = 0, totalHeight = 0;
     QDesktopWidget *desktopWidget = QApplication::desktop();
-    QRect deskRect = desktopWidget->availableGeometry();
-    QRect screenRect = desktopWidget->screenGeometry();
+    int screenNum = desktopWidget->screenCount();
+    qDebug() << screenNum;
+    for (int i = 0; i < screenNum; i ++) {
+        if (desktopWidget->screen(i)->height() > totalHeight) {
+            totalHeight = desktopWidget->screen(i)->height();
+        }
+        totalWidth += desktopWidget->screen(i)->width();
+    }
+//    QRect deskRect = desktopWidget->availableGeometry();
+//    QRect screenRect = desktopWidget->screenGeometry();
 
     // 设置全屏/最大化
-    this->setGeometry(screenRect);
-    this->setMinimumWidth(screenRect.width());
-    this->setMinimumHeight(screenRect.height());
+    this->setGeometry(0, 0, 0, 0);
+    this->setMinimumWidth(totalWidth);
+    this->setMinimumHeight(totalHeight);
 
     // 设置透明
     this->setWindowOpacity(1);
@@ -32,15 +41,15 @@ MainWindow::MainWindow(QWidget *parent) :
     webView->installEventFilter(this);
 
     webView->load(QUrl("http://localhost:4000"));
-    webView->resize(screenRect.width(), screenRect.height());
+    webView->resize(this->width(), this->height());
     webView->show();
 
     // 添加按钮
-    IconButton *btn[5];
-    for (int i = 0; i < 5; i ++) {
-        btn[i] = new IconButton(this);
-        btn[i]->move(0, 100 * i);
-    }
+//    IconButton *btn[5];
+//    for (int i = 0; i < 5; i ++) {
+//        btn[i] = new IconButton(this);
+//        btn[i]->move(0, 100 * i);
+//    }
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)

@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QDebug>
 #include <QMouseEvent>
+#include <QPoint>
 
 class IconButton : public QPushButton
 {
@@ -17,7 +18,7 @@ protected:
 
 private:
     bool isMoving;
-//    QPoint movePos;
+    int posX, posY;
 };
 
 #endif // ICONBUTTON_H

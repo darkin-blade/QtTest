@@ -11,24 +11,25 @@ IconButton::IconButton(QWidget *parent) :
 
 void IconButton::mousePressEvent(QMouseEvent *e)
 {
-    qDebug() << __FILE__;
-    qDebug() << __FUNCTION__;
-    qDebug() << e->globalPos();
-//    qDebug() << pos();
     isMoving = true;
+    posX = e->globalPos().x() - pos().x();
+    posY = e->globalPos().y() - pos().y();
     return QPushButton::mousePressEvent(e);
 }
 
 void IconButton::mouseMoveEvent(QMouseEvent *e)
 {
     if (isMoving) {
-        this->move(e->globalPos());
+        this->move(e->globalPos().x() - posX, e->globalPos().y() - posY);
     }
     return QPushButton::mouseMoveEvent(e);
 }
 
 void IconButton::mouseReleaseEvent(QMouseEvent *e)
 {
+    if (isMoving) {
+        isMoving = false;
+        this->move(e->globalPos().x() / 100 * 100, e->globalPos().y() / 100 * 100);
+    }
     return QPushButton::mouseReleaseEvent(e);
 }
-
