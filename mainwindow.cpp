@@ -36,15 +36,11 @@ MainWindow::MainWindow(QWidget *parent) :
     webView->show();
 
     // 添加按钮
-//    QWidget *window = new QWidget;
-    IconButton *button1 = new IconButton(this);
-    button1->move(100, 100);
-
-//    QGridLayout *layout = new QGridLayout();
-//    layout->addWidget(button1);
-
-//    window->setLayout(layout);
-//    setCentralWidget(window);
+    IconButton *btn[5];
+    for (int i = 0; i < 5; i ++) {
+        btn[i] = new IconButton(this);
+        btn[i]->move(0, 100 * i);
+    }
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)

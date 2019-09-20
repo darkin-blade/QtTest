@@ -16,6 +16,8 @@ protected:
     void mouseReleaseEvent(QMouseEvent *e);
 
 private:
+    bool isMoving;
+//    QPoint movePos;
 };
 
 #endif // ICONBUTTON_H
