@@ -1,6 +1,7 @@
 #include "iconbutton.h"
 
-IconButton::IconButton()
+IconButton::IconButton() :
+    QPushButton()
 {
 
 }
