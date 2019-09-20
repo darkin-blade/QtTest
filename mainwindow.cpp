@@ -9,8 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // 设置为无边框
-//    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
+    this->setObjectName("main window");
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
+//    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
 //    this->setWindowFlags(Qt::WindowStaysOnBottomHint);
 
     // 获取屏幕分辨率
@@ -32,17 +33,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 嵌入网页
     webView = new WebView(this);
-//    webView->installEventFilter(this);
+    webView->setObjectName("web");
+    webView->installEventFilter(this);
 
     webView->load(QUrl("http://localhost:4000"));
     webView->resize(screenRect.width(), screenRect.height());
     webView->show();
 }
 
-//bool MainWindow::eventFilter(QObject *watched, QEvent *event)
-//{
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    qDebug() << __FILE__;
+    qDebug() << watched->objectName();
+    qDebug() << event->type();
+    qDebug() << __FUNCTION__;
 //    if (event->type() == QEvent::KeyPress) {
-//        qDebug() << "shit";
+//        qDebug() << "key pressed";
 //        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
 //        MainWindow::keyPressEvent(keyEvent);
 //        if (keyEvent->key() == Qt::Key_Escape) {
@@ -54,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    } else {
 //        return false;
 //    }
-//}
+}
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {

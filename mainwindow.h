@@ -3,6 +3,7 @@
 
 #include <webview.h>
 #include <QMainWindow>
+#include <QKeyEvent>
 #include <QDesktopWidget>
 #include <QRect>
 
@@ -20,7 +21,7 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *event);
-//    bool eventFilter(QObject *watched, QEvent *event);
+    bool eventFilter(QObject *watched, QEvent *event);
 
 private:
     Ui::MainWindow *ui;

@@ -10,6 +10,17 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *event);
+    bool event(QEvent *event)
+    {
+//        qDebug() << __FILE__;
+//        qDebug() << __FUNCTION__;
+    }
+
+    bool eventFilter(QObject *watched, QEvent *event)
+    {
+        qDebug() << __FILE__;
+        qDebug() << __FUNCTION__;
+    }
 };
 
 #endif // WEBVIEW_H
