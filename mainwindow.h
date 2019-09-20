@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QKeyEvent>
+#include <QDesktopWidget>
+#include <QRect>
+#include <QWebEngineView>
 
 namespace Ui {
 class MainWindow;
@@ -18,9 +21,11 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *event);
+    bool eventFilter(QObject *watched, QEvent *event);
 
 private:
     Ui::MainWindow *ui;
+    QWebEngineView *webView;
 };
 
 #endif // MAINWINDOW_H

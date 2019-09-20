@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDesktopWidget>
-#include <QRect>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,18 +32,38 @@ MainWindow::MainWindow(QWidget *parent) :
 //    this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowOpacity(1);
     // this->setStyleSheet("MainWindow{background: transparent;}");
+
+    // 嵌入网页
+    webView = new QWebEngineView(this);
+    webView->installEventFilter(this);
+
+    webView->load(QUrl("http://localhost:4000"));
+    webView->resize(screenRect.width(), screenRect.height());
+    webView->show();
+}
+
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    qDebug() << "nm";
+    if (event->type() == QEvent::KeyPress) {
+        qDebug() << "shit";
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        MainWindow::keyPressEvent(keyEvent);
+        if (keyEvent->key() == Qt::Key_Escape) {
+            this->close();
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    printf("key pressed\n");
-    switch (event->key()) {
-        case Qt::Key_Escape:
-            this->close();
-            break;
-        default:
-            break;
-    }
+    qDebug() << "fuck";
+    QMainWindow::keyPressEvent(event);
 }
 
 MainWindow::~MainWindow()
