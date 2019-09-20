@@ -10,5 +10,5 @@ WebView::WebView(QWidget *parent) :
 
 void WebView::keyPressEvent(QKeyEvent *event)
 {
-    qDebug() << "key pressed";
+    ;
 }

@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     IconButton *button1 = new IconButton();
 
     QGridLayout *layout = new QGridLayout();
-    layout->addWidget(button1, 0, 0);
+    layout->addWidget(button1);
 
     window->setLayout(layout);
     setCentralWidget(window);

@@ -2,6 +2,7 @@
 #define ICONBUTTON_H
 
 #include <QPushButton>
+#include <QDebug>
 
 class IconButton : public QPushButton
 {
