@@ -1,7 +1,7 @@
 #include "iconbutton.h"
 
-IconButton::IconButton() :
-    QPushButton()
+IconButton::IconButton(QWidget *parent) :
+    QPushButton(parent)
 {
     qDebug() << __FILE__;
     qDebug() << __FUNCTION__;
@@ -10,3 +10,16 @@ IconButton::IconButton() :
     this->setMaximumHeight(100);
     this->setMaximumWidth(100);
 }
+
+void IconButton::mousePressEvent(QMouseEvent *e)
+{
+}
+
+void IconButton::mouseMoveEvent(QMouseEvent *e)
+{
+}
+
+void IconButton::mouseReleaseEvent(QMouseEvent *e)
+{
+}
+

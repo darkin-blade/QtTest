@@ -3,11 +3,19 @@
 
 #include <QPushButton>
 #include <QDebug>
+#include <QMouseEvent>
 
 class IconButton : public QPushButton
 {
 public:
-    IconButton();
+    IconButton(QWidget *parent = Q_NULLPTR);
+
+protected:
+    void mousePressEvent(QMouseEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
+
+private:
 };
 
 #endif // ICONBUTTON_H
