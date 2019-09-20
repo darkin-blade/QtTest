@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <iconbutton.h>
 #include <webview.h>
 #include <QMainWindow>
 #include <QKeyEvent>

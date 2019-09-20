@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     webView->load(QUrl("http://localhost:4000"));
     webView->resize(screenRect.width(), screenRect.height());
     webView->show();
+
+    // 添加按钮
+    QPushButton *btn = new QPushButton(this);
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
