@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 设置为无边框
 //    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
 //    this->setWindowFlags(Qt::WindowStaysOnBottomHint);
 
     // 获取屏幕分辨率
