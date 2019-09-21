@@ -32,6 +32,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     WebView *webView;
+    QDesktopWidget *desktopWidget;
 };
 
 #endif // MAINWINDOW_H

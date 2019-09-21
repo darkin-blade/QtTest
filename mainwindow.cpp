@@ -10,12 +10,28 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 设置为无边框
     this->setObjectName("main window");
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint);
-//    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
+//    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
 
     // 获取屏幕分辨率
+    desktopWidget = QApplication::desktop();
+    changeSize();
+
+    // 添加按钮
+//    IconButton *btn[5];
+//    for (int i = 0; i < 5; i ++) {
+//        btn[i] = new IconButton(this);
+//        btn[i]->move(0, 100 * i);
+//    }
+
+    // 检测屏幕分辨率变化
+    connect(desktopWidget, SIGNAL(resized(int)), this, SLOT(changeSize()));
+    connect(desktopWidget, SIGNAL(screenCountChanged(int)), this, SLOT(changeSize()));
+}
+
+void MainWindow::changeSize()
+{
     int totalWidth = 0, totalHeight = 0;
-    QDesktopWidget *desktopWidget = QApplication::desktop();
     int screenNum = desktopWidget->screenCount();
     for (int i = 0; i < screenNum; i ++) {
         if (desktopWidget->screen(i)->height() > totalHeight) {
@@ -27,9 +43,16 @@ MainWindow::MainWindow(QWidget *parent) :
 //    QRect screenRect = desktopWidget->screenGeometry();
 
     // 设置全屏/最大化
-    this->setGeometry(0, 0, 0, 0);
-    this->setMinimumWidth(totalWidth);
-    this->setMinimumHeight(totalHeight);
+    qDebug() << __FUNCTION__;
+    qDebug() << totalWidth << " " << totalHeight;
+
+    this->setGeometry(0, 0, totalWidth, totalHeight);
+    this->setFixedSize(QSize(totalWidth, totalHeight));
+//    this->resize(QSize(totalWidth, totalHeight));
+//    this->setMinimumWidth(totalWidth);
+//    this->setMinimumHeight(totalHeight);
+
+    qDebug() << this->minimumWidth() << " " << this->minimumHeight();
 
     // 设置透明
     this->setWindowOpacity(1);
@@ -42,22 +65,6 @@ MainWindow::MainWindow(QWidget *parent) :
     webView->load(QUrl("http://localhost:4000"));
     webView->resize(this->width(), this->height());
     webView->show();
-
-    // 添加按钮
-//    IconButton *btn[5];
-//    for (int i = 0; i < 5; i ++) {
-//        btn[i] = new IconButton(this);
-//        btn[i]->move(0, 100 * i);
-//    }
-
-    // 检测屏幕分辨率变化
-    connect(desktopWidget, SIGNAL(resized(int)), this, SLOT(changeSize()));
-//    connect(desktopWidget, SIGNAL(screenCountChanged(int)), this, SLOT(changeSize()));
-}
-
-void MainWindow::changeSize()
-{
-    qDebug() << __FUNCTION__;
 }
 
 bool MainWindow::event(QEvent *event)
@@ -68,6 +75,7 @@ bool MainWindow::event(QEvent *event)
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::ShortcutOverride) {
+        qDebug() << __FUNCTION__;
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if (keyEvent->key() == Qt::Key_Escape) {
             exit(0);
