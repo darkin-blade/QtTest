@@ -17,18 +17,41 @@ void Menu::init()
     tray->show();
     connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(TrayIconAction(QSystemTrayIcon::ActivationReason)));
 
-    menu = new QMenu(this);
-    reset = new QAction(this);
-    reset->setText("show");
-    connect(reset, SIGNAL(triggered()), this, SLOT(showNormal()));
+    // 设置菜单
+    // menu = new QMenu(this);
+    // // reset = new QAction(this);
+    // // reset->setText("show");
+    // // connect(reset, SIGNAL(triggered()), this, SLOT(showNormal()));
 
-    quit = new QAction(this);
-    quit->setText("quit");
-    connect(quit, SIGNAL(triggered()), qApp, SLOT(quit()));
+    // // `退出程序`选项
+    // quit = new QAction(this);
+    // quit->setText("quit");
+    // connect(quit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
-    tray->setContextMenu(menu);
-    menu->addAction(reset);
-    menu->addAction(quit);
+    // tray->setContextMenu(menu);
+    // // menu->addAction(reset);
+    // menu->addAction(quit);
+    
+    int width = this->width();
+    int height = this->height();
+    btnQuit = new QPushButton(this);
+    
+    connect(btnQuit, SIGNAL(clicked(bool)), this, SLOT(pressQuit()));
+}
+
+void Menu::pressQuit()
+{
+    exit(0);
+}
+
+void Menu::pressHide()
+{
+    ;
+}
+
+void Menu::pressShow()
+{
+    ;
 }
 
 void Menu::closeEvent(QCloseEvent *event)
