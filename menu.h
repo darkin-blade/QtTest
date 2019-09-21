@@ -27,6 +27,9 @@ signals:
 
 public slots:
     void TrayIconAction(QSystemTrayIcon::ActivationReason reason);// 对托盘图标操作的槽:本代码实现单机图标恢复窗口功能
+
+private:
+    bool isOpen;// 窗口是否打开
 };
 
 #endif // MENU_H

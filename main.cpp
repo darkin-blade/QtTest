@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 //    MainWindow w;
 //    w.show();
     Menu m;
-    m.show();
+    m.showNormal();// 在主窗口显示
 
 
 //    qDebug() << __FILE__;
