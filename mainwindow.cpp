@@ -15,14 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 获取屏幕分辨率
     desktopWidget = QApplication::desktop();
+    system("php -S localhost:6061 -t ~/webGL");
     changeSize();
-
-    // 添加按钮
-//    IconButton *btn[5];
-//    for (int i = 0; i < 5; i ++) {
-//        btn[i] = new IconButton(this);
-//        btn[i]->move(0, 100 * i);
-//    }
 
     // 检测屏幕分辨率变化
     connect(desktopWidget, SIGNAL(resized(int)), this, SLOT(changeSize()));
@@ -48,9 +42,6 @@ void MainWindow::changeSize()
 
     this->setGeometry(0, 0, totalWidth, totalHeight);
     this->setFixedSize(QSize(totalWidth, totalHeight));
-//    this->resize(QSize(totalWidth, totalHeight));
-//    this->setMinimumWidth(totalWidth);
-//    this->setMinimumHeight(totalHeight);
 
     qDebug() << this->minimumWidth() << " " << this->minimumHeight();
 
@@ -62,7 +53,7 @@ void MainWindow::changeSize()
     webView->setObjectName("web");
     webView->installEventFilter(this);
 
-    webView->load(QUrl("http://localhost:4000"));
+    webView->load(QUrl("http://localhost:6061"));
     webView->resize(this->width(), this->height());
     webView->show();
 }
