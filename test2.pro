@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     webview.cpp \
-    iconbutton.cpp
+    iconbutton.cpp \
+    menu.cpp
 
 HEADERS += \
         mainwindow.h \
     webview.h \
-    iconbutton.h
+    iconbutton.h \
+    menu.h
 
 FORMS += \
         mainwindow.ui
