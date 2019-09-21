@@ -1,6 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include "mainwindow.h"
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 #include <QMenu>
@@ -16,6 +17,8 @@ class Menu : public QMainWindow
 public:
     explicit Menu(QWidget *parent = nullptr);
     void init();// 初始化函数
+
+    MainWindow *background;
  
     QSystemTrayIcon *tray;// 托盘图标
     // QMenu *menu;// 托盘菜单
