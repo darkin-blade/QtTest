@@ -10,14 +10,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 设置为无边框
     this->setObjectName("main window");
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint);
 //    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
 
     // 获取屏幕分辨率
     int totalWidth = 0, totalHeight = 0;
     QDesktopWidget *desktopWidget = QApplication::desktop();
     int screenNum = desktopWidget->screenCount();
-    qDebug() << screenNum;
     for (int i = 0; i < screenNum; i ++) {
         if (desktopWidget->screen(i)->height() > totalHeight) {
             totalHeight = desktopWidget->screen(i)->height();
@@ -50,13 +49,26 @@ MainWindow::MainWindow(QWidget *parent) :
 //        btn[i] = new IconButton(this);
 //        btn[i]->move(0, 100 * i);
 //    }
+
+    // 检测屏幕分辨率变化
+    connect(desktopWidget, SIGNAL(resized(int)), this, SLOT(changeSize()));
+//    connect(desktopWidget, SIGNAL(screenCountChanged(int)), this, SLOT(changeSize()));
+}
+
+void MainWindow::changeSize()
+{
+    qDebug() << __FUNCTION__;
+}
+
+bool MainWindow::event(QEvent *event)
+{
+    return QMainWindow::event(event);
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type() == QEvent::ShortcutOverride) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        qDebug() << keyEvent->key();
         if (keyEvent->key() == Qt::Key_Escape) {
             exit(0);
             return true;

@@ -8,8 +8,8 @@ int main(int argc, char *argv[])
     w.show();
 
 
-    qDebug() << __FILE__;
-    qDebug() << __FUNCTION__;
+//    qDebug() << __FILE__;
+//    qDebug() << __FUNCTION__;
 
     return a.exec();
 }

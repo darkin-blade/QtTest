@@ -24,6 +24,10 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event);
     bool eventFilter(QObject *watched, QEvent *event);
+    bool event(QEvent *event);
+
+public slots:
+    void changeSize();
 
 private:
     Ui::MainWindow *ui;
