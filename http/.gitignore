@@ -1,0 +1,8 @@
+assets/
+output/
+jq/
+s
+*.ico
+*.js
+*.html
+*.css
