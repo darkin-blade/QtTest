@@ -15,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 获取屏幕分辨率
     desktopWidget = QApplication::desktop();
-    system("php -S localhost:6061 -t ~/webGL");
     changeSize();
 
     // 检测屏幕分辨率变化
@@ -53,7 +52,7 @@ void MainWindow::changeSize()
     webView->setObjectName("web");
     webView->installEventFilter(this);
 
-    webView->load(QUrl("http://localhost:6061"));
+    webView->load(QUrl("http://127.0.0.1:8000"));
     webView->resize(this->width(), this->height());
     webView->show();
 }
