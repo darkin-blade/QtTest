@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-    if (0) {
+    if (1) {
 
         QApplication a(argc, argv);
 
@@ -20,21 +20,15 @@ int main(int argc, char *argv[])
     //    qDebug() << __FUNCTION__;
 
         Server *server = new Server();
-        server->local_host();
+        server->run();
 
+        for (int i = 0; i < 100; i ++) {
+            qDebug() << "2";
+        }
 
         return a.exec();
     } else {
-        QString program = "ls";
-        QStringList arguments;
-        arguments << ".";
 
-        QProcess *myProcess = new QProcess();
-        myProcess->start(program, arguments);
-        myProcess->waitForFinished();
-        QByteArray output = myProcess->readAllStandardOutput();
-//        QByteArray output = myProcess->readAllStandardError();
-        qDebug() << output;
 
         return 0;
     }

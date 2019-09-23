@@ -25,6 +25,7 @@ public:
     void read_request();
     void send_file();
     void send_helper(char *, int);
+    void run();
     int local_host();
 
 protected:

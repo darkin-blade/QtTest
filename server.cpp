@@ -6,6 +6,13 @@ Server::Server(QObject *parent) :
     qDebug() << __FUNCTION__;
 }
 
+void Server::run()
+{
+    msleep(500);
+    for (int i = 0; i < 100; i ++) {
+        qDebug() << "1";
+    }
+}
 
 int Server::local_host()
 {
