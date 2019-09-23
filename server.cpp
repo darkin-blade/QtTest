@@ -1,32 +1,13 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <assert.h>
-#include <string.h>
-#include <stdlib.h>
-
-#include <fcntl.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-
-#include <QDebug>
 #include "server.h"
 
-struct sockaddr_in s_addr;
-struct sockaddr_in c_addr;
-socklen_t c_addr_size;
-int s_sock;// server socket
-int c_sock;// clinet socket
-
-char buf[4096];// user agent
-char msg[4096];// file content
-char head[1024];// http header
-char file[128];// which file requested
-char type[128];// file format
+Server::Server(QObject *parent) :
+    QThread(parent)
+{
+    qDebug() << __FUNCTION__;
+}
 
 
-int local_host()
+int Server::local_host()
 {
   qDebug() << __FUNCTION__;
   init_server();
@@ -46,7 +27,7 @@ int local_host()
   return 0;
 }
 
-void init_server()
+void Server::init_server()
 {
   s_sock = socket(AF_INET, SOCK_STREAM, 0);
   assert(s_sock != -1);
@@ -62,7 +43,7 @@ void init_server()
   c_addr_size = sizeof(c_addr);
 }
 
-void read_request()
+void Server::read_request()
 {
   int buf_len = strlen(buf);
   int i = 0, j = 0;
@@ -79,7 +60,7 @@ void read_request()
   }
 }
 
-void send_file()
+void Server::send_file()
 {
   int is_html = 1;
   if (strcmp(file, "/") == 0) {
@@ -145,7 +126,7 @@ void send_file()
   close(fd);
 }
 
-void send_helper(char *content, int size)
+void Server::send_helper(char *content, int size)
 {
   while (size > 0) {
     int delta = send(c_sock, content, size, 0);
