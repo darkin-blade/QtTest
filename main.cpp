@@ -18,9 +18,6 @@ int main(int argc, char *argv[])
     //    qDebug() << __FILE__;
     //    qDebug() << __FUNCTION__;
 
-        Server *server = new Server();
-        server->start();
-
         m.showNormal();// 在主窗口显示
 
         return a.exec();

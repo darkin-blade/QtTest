@@ -3,11 +3,17 @@
 Server::Server(QObject *parent) :
     QThread(parent)
 {
-    qDebug() << __FUNCTION__;
+    success = -1;
+}
+
+int Server::getSuccess()
+{
+    return success;
 }
 
 void Server::run()
 {
+//    qDebug() << __FUNCTION__;
     local_host();
 }
 
@@ -39,8 +45,10 @@ void Server::init_server()
   s_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
   s_addr.sin_port = htons(8000);
 
-  int res = bind(s_sock, (struct sockaddr*)&s_addr, sizeof(s_addr));
-  if (res == -1) { perror("cannot bind"); exit(-1); }
+  success = bind(s_sock, (struct sockaddr*)&s_addr, sizeof(s_addr));
+  if (success == -1) { perror("cannot bind"); exit(-1); }
+  qDebug() << __FILE__ << __FUNCTION__;
+  qDebug("success: %d", success);
 
   listen(s_sock, 10);// TODO
 
@@ -55,10 +63,10 @@ void Server::read_request()
     if (buf[i] == 'G' && buf[i + 1] == 'E' && buf[i + 2] == 'T') {// `GET` keyword
       i = i + 4;// skip space
       while (buf[i] != ' ') {
-        file[j] = buf[i];
+        fileRequest[j] = buf[i];
         j ++, i ++;
       }
-      file[j] = '\0';
+      fileRequest[j] = '\0';
       return;
     }
   }
@@ -66,26 +74,33 @@ void Server::read_request()
 
 void Server::send_file()
 {
-    if (strcmp(file, "/") == 0) {
-      sprintf(file, "%s/index.html", rootDir);
-      sprintf(type, ".html");
-    } else {
-      char temp[128];
-      strcpy(temp, file + 1);// skip `/`
-      sprintf(file, "%s/%s", rootDir, temp);
-      int i = 0, j = 0;
-      for (i = strlen(file); file[i] != '.'; i --) {// find `.`
-        ;
-      }
-      for (j = 0; i < strlen(file); i ++, j ++) {
-        type[j] = file[i];
-      }
-      type[j] = '\0';
+  if (strcmp(fileRequest, "/") == 0) {
+    sprintf(fileSend, "%s/index.html", rootDir);
+    sprintf(type, ".html");
+  } else {
+    char temp[128];
+    sprintf(fileSend, "%s/%s", rootDir, fileRequest + 1);// skip `/`
+    int i = 0, j = 0;
+    for (i = strlen(fileSend); fileSend[i] != '.'; i --) {// find `.`
+      ;
     }
-
+    for (j = 0; i < strlen(fileSend); i ++, j ++) {
+      type[j] = fileSend[i];
+    }
+    type[j] = '\0';
+  }
+  qDebug("%s %d: %s %s", __func__, __LINE__, fileSend, type);
 
   // count file length
-  int fd = open(file, O_RDONLY);
+  int fd = open(fileSend, O_RDONLY);
+  if (fd == -1) {// no such a file
+    sprintf(head, 
+        "HTTP/1.1 404 NOT FOUND\r\n"
+        );
+    send(c_sock, head, strlen(head), 0);
+    return;
+  }
+
   int file_len = lseek(fd, 0, SEEK_END);
 
   // send http header
@@ -104,7 +119,7 @@ void Server::send_file()
   } else {
     sprintf(type, "application/octet-stream");
   }
-  sprintf(head,
+  sprintf(head, 
       "HTTP/1.1 200 OK\r\n"
       "Content-Type: %s\r\n"
       "Content-Length: %d\r\n"
@@ -125,7 +140,7 @@ void Server::send_file()
     delta += size;
     // send(c_sock, msg, strlen(msg), 0);
     send_helper(msg, size);
-//    qDebug() << delta << " " << file_len;
+    // qDebug("%d %d", delta, file_len);
   }
 
   close(fd);

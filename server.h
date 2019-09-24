@@ -26,6 +26,7 @@ public:
     void send_file();
     void send_helper(char *, int);
     void run();
+    int getSuccess();
     int local_host();
 
 protected:
@@ -35,12 +36,16 @@ protected:
     int s_sock;// server socket
     int c_sock;// clinet socket
 
+
     char buf[4096];// user agent
     char msg[4096];// file content
     char head[1024];// http header
-    char file[128];// which file requested
+    char fileRequest[128];// which file requested
+    char fileSend[256];// file send to client
     char type[128];// file format
     const char *rootDir = "/home/lynx/fuck_mount/QtProj/test2/http";
+
+    int success;// bind success
 };
 
 #endif // SERVER_H

@@ -2,6 +2,7 @@
 #define MENU_H
 
 #include "mainwindow.h"
+#include "server.h"
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 #include <QMenu>
@@ -21,13 +22,13 @@ public:
     MainWindow *background;
  
     QSystemTrayIcon *tray;// 托盘图标
-    // QMenu *menu;// 托盘菜单
-    // QMenuBar *menuBar;
-    // QAction *reset;// 菜单实现功能:恢复窗口
-    // QAction *quit;// 菜单实现功能:退出程序
+
     QPushButton *btnQuit;
     QPushButton *btnHide;
     QPushButton *btnShow;
+    QPushButton *btnLoad;
+
+    Server *server;
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -39,6 +40,7 @@ public slots:
     void pressQuit();
     void pressHide();
     void pressShow();
+    void pressLoad();
 
 private:
     bool isOpen;// 窗口是否打开

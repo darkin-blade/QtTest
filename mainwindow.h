@@ -27,7 +27,7 @@ protected:
     bool event(QEvent *event);
 
 public slots:
-    void changeSize();
+    void loadWindow();
 
 private:
     Ui::MainWindow *ui;

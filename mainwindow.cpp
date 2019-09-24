@@ -15,14 +15,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 获取屏幕分辨率
     desktopWidget = QApplication::desktop();
-    changeSize();
+    // loadWindow();
 
     // 检测屏幕分辨率变化
-    connect(desktopWidget, SIGNAL(resized(int)), this, SLOT(changeSize()));
-    connect(desktopWidget, SIGNAL(screenCountChanged(int)), this, SLOT(changeSize()));
+    connect(desktopWidget, SIGNAL(resized(int)), this, SLOT(loadWindow()));
+    connect(desktopWidget, SIGNAL(screenCountChanged(int)), this, SLOT(loadWindow()));
 }
 
-void MainWindow::changeSize()
+void MainWindow::loadWindow()
 {
     int totalWidth = 0, totalHeight = 0;
     int screenNum = desktopWidget->screenCount();
@@ -36,13 +36,8 @@ void MainWindow::changeSize()
 //    QRect screenRect = desktopWidget->screenGeometry();
 
     // 设置全屏/最大化
-    qDebug() << __FUNCTION__;
-    qDebug() << totalWidth << " " << totalHeight;
-
     this->setGeometry(0, 0, totalWidth, totalHeight);
     this->setFixedSize(QSize(totalWidth, totalHeight));
-
-    qDebug() << this->minimumWidth() << " " << this->minimumHeight();
 
     // 设置透明
     this->setWindowOpacity(1);
@@ -53,6 +48,7 @@ void MainWindow::changeSize()
     webView->installEventFilter(this);
 
     webView->load(QUrl("http://127.0.0.1:8000"));
+    qDebug("%s %s", __FILE__, __FUNCTION__);
     webView->resize(this->width(), this->height());
     webView->show();
 }
