@@ -14,20 +14,24 @@ int main(int argc, char *argv[])
         QApplication a(argc, argv);
 
         Menu m;
-    //    m.showNormal();// 在主窗口显示
 
     //    qDebug() << __FILE__;
     //    qDebug() << __FUNCTION__;
 
         Server *server = new Server();
-        server->run();
+        server->start();
 
-        for (int i = 0; i < 100; i ++) {
-            qDebug() << "2";
-        }
+        m.showNormal();// 在主窗口显示
 
         return a.exec();
     } else {
+
+        Server *server = new Server();
+        server->start();
+
+        for (int i = 0; i < 10; i ++) {
+            qDebug() << "2";
+        }
 
 
         return 0;

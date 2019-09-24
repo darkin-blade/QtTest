@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // 设置为无边框
     this->setObjectName("main window");
-//    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
+    this->setWindowFlags(Qt::FramelessWindowHint);
+//    this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
 
     // 获取屏幕分辨率
     desktopWidget = QApplication::desktop();

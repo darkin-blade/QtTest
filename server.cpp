@@ -8,10 +8,7 @@ Server::Server(QObject *parent) :
 
 void Server::run()
 {
-    msleep(500);
-    for (int i = 0; i < 100; i ++) {
-        qDebug() << "1";
-    }
+    local_host();
 }
 
 int Server::local_host()
@@ -69,22 +66,23 @@ void Server::read_request()
 
 void Server::send_file()
 {
-  int is_html = 1;
-  if (strcmp(file, "/") == 0) {
-    sprintf(file, "http/index.html");
-    sprintf(type, ".html");
-  } else {
-    sprintf(file, "http/%s", file + 1);// skip `/`
-    int i = 0, j = 0;
-    for (i = strlen(file); file[i] != '.'; i --) {// find `.`
-      ;
+    if (strcmp(file, "/") == 0) {
+      sprintf(file, "%s/index.html", rootDir);
+      sprintf(type, ".html");
+    } else {
+      char temp[128];
+      strcpy(temp, file + 1);// skip `/`
+      sprintf(file, "%s/%s", rootDir, temp);
+      int i = 0, j = 0;
+      for (i = strlen(file); file[i] != '.'; i --) {// find `.`
+        ;
+      }
+      for (j = 0; i < strlen(file); i ++, j ++) {
+        type[j] = file[i];
+      }
+      type[j] = '\0';
     }
-    for (j = 0; i < strlen(file); i ++, j ++) {
-      type[j] = file[i];
-    }
-    type[j] = '\0';
-    qDebug() << file << " " << type;
-  }
+
 
   // count file length
   int fd = open(file, O_RDONLY);
@@ -127,7 +125,7 @@ void Server::send_file()
     delta += size;
     // send(c_sock, msg, strlen(msg), 0);
     send_helper(msg, size);
-    qDebug() << delta << " " << file_len;
+//    qDebug() << delta << " " << file_len;
   }
 
   close(fd);

@@ -40,6 +40,7 @@ protected:
     char head[1024];// http header
     char file[128];// which file requested
     char type[128];// file format
+    const char *rootDir = "/home/lynx/fuck_mount/QtProj/test2/http";
 };
 
 #endif // SERVER_H
