@@ -89,6 +89,7 @@ void Menu::pressHide()
 
 void Menu::pressShow()
 {
+    background->loadWindow();
     background->showNormal();
 }
 
